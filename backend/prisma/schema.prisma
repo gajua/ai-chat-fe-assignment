@@ -1,0 +1,61 @@
+// AI 캐릭터 채팅 서비스 Prisma 스키마
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// 인증을 위한 사용자 모델
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String   // 해싱된 비밀번호
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 관계
+  characters Character[]
+  messages   Message[]
+}
+
+// AI 캐릭터 모델
+model Character {
+  id          String   @id @default(uuid())
+  name        String
+  prompt      String   // OpenAI용 시스템 프롬프트
+  thumbnail   String?  // URL 또는 이모지
+  isDefault   Boolean  @default(false) // 시드 캐릭터의 경우 true
+  createdById String?
+  createdBy   User?    @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // 관계
+  messages Message[]
+
+  @@index([createdById])
+}
+
+// 채팅 메시지 모델
+model Message {
+  id          String   @id @default(uuid())
+  content     String
+  role        String   // "user" 또는 "assistant"
+  characterId String
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+
+  @@index([characterId, createdAt])
+  @@index([userId])
+}
+
+
+
+
+
+

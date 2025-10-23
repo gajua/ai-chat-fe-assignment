@@ -1,0 +1,130 @@
+/* Tailwind CSS v3 기본 설정 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 전역 스타일 */
+@layer base {
+  * {
+    @apply m-0 p-0 box-border;
+  }
+
+  body {
+    @apply antialiased text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-gray-900 leading-normal transition-colors duration-200;
+  }
+
+  code {
+    @apply font-mono;
+  }
+}
+
+/* 커스텀 컴포넌트 */
+@layer components {
+  /* 버튼 스타일 */
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-2 text-sm font-medium rounded-md border-0 cursor-pointer transition-all duration-200;
+  }
+
+  .btn:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white dark:bg-primary-light dark:hover:bg-primary;
+  }
+  
+  .btn-primary:hover:not(:disabled) {
+    @apply bg-primary-hover;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-gray-100;
+  }
+  
+  .btn-secondary:hover:not(:disabled) {
+    @apply bg-gray-300 dark:bg-gray-600;
+  }
+
+  /* 입력 필드 스타일 */
+  .input {
+    @apply w-full px-4 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md;
+    @apply bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 transition-all duration-200;
+    @apply focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10;
+  }
+
+  /* 카드 스타일 */
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md;
+  }
+
+  /* 로딩 스피너 */
+  .loading {
+    @apply animate-spin;
+  }
+}
+
+/* 커스텀 유틸리티 */
+@layer utilities {
+  /* 스크롤바 스타일 */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-gray-800;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400 dark:bg-gray-500;
+  }
+
+  /* 페이드인 애니메이션 */
+  .fade-in {
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* 로딩 도트 애니메이션 */
+  .loading-dot {
+    animation: loadingDot 1.4s infinite ease-in-out both;
+    @apply text-2xl;
+  }
+
+  .loading-dot:nth-child(1) {
+    animation-delay: -0.32s;
+  }
+
+  .loading-dot:nth-child(2) {
+    animation-delay: -0.16s;
+  }
+
+  @keyframes loadingDot {
+    0%, 80%, 100% {
+      opacity: 0.3;
+      transform: scale(0.8);
+    }
+    40% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+
+
+
